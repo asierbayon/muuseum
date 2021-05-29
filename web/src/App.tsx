@@ -1,13 +1,24 @@
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import './App.css';
+import AuthStore from './contexts/AuthStore';
+import { ThemeProvider } from '@material-ui/core';
+import theme from './theme/theme';
+// screens
+import Login from '../src/screens/auth/Login';
+import Home from './components/Home';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <div>Hola</div>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <AuthStore>
+        <Router>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Redirect to="/" />
+          </Switch>
+        </Router>
+      </AuthStore>
+    </ThemeProvider>
   );
 }
 
