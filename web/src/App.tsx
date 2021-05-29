@@ -5,6 +5,8 @@ import theme from './theme/theme';
 // screens
 import Login from '../src/screens/auth/Login';
 import Home from './components/Home';
+// paths
+import { PATH_AUTH } from './routes/paths';
 
 function App() {
   return (
@@ -12,7 +14,7 @@ function App() {
       <AuthStore>
         <Router>
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route exact path={PATH_AUTH.login} component={Login} />
             <Route exact path="/" component={Home} />
             <Redirect to="/" />
           </Switch>
