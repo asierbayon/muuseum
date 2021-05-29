@@ -1,12 +1,13 @@
-import { useEffect } from 'react'
-import * as Yup from 'yup'
-import { useState } from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Icon } from '@iconify/react'
-import eyeFill from '@iconify-icons/eva/eye-fill'
-import eyeOffFill from '@iconify-icons/eva/eye-off-fill'
+import { useEffect } from 'react';
+import useAuth from '../../hooks/useAuth';
+import * as Yup from 'yup';
+import { useState } from 'react';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Icon } from '@iconify/react';
+import eyeFill from '@iconify-icons/eva/eye-fill';
+import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
 // material
 import {
   Box,
@@ -17,28 +18,29 @@ import {
   InputAdornment,
   FormControlLabel,
   Alert
-} from '@material-ui/core'
-import { Button } from '@material-ui/core'
+} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 // services
-import { login } from '../../services/users-service'
+import { login } from '../../services/users-service';
 
 // ----------------------------------------------------------------------
 
 type User = {
-  email: string
-  password: string
-  remember: boolean
-  onSubmit?: string
-}
+  email: string;
+  password: string;
+  remember: boolean;
+  onSubmit?: string;
+};
 
 export default function LoginForm() {
-  const history = useHistory()
-  const [showPassword, setShowPassword] = useState(false)
+  const history = useHistory();
+  const { onUserChange } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
-  })
+  });
 
   const {
     register,
@@ -53,32 +55,33 @@ export default function LoginForm() {
     defaultValues: {
       remember: true
     }
-  })
+  });
   const onSubmit = handleSubmit(async (values) => {
     try {
       const user = await login({
         email: values.email,
         password: values.password
-      })
-      history.push('/')
+      });
+      history.push('/');
+      onUserChange(user);
     } catch (error) {
-      const { errors } = error.response.data
+      const { errors } = error.response.data;
       useEffect(() => {
         setError('onSubmit', {
           type: 'manual',
           message: errors.onSubmit
-        })
-      }, [setError])
+        });
+      }, [setError]);
     }
-  })
+  });
 
   const handleShowPassword = () => {
-    setShowPassword((show) => !show)
-  }
+    setShowPassword((show) => !show);
+  };
 
   const handleRemember = () => {
-    setValue('remember', !getValues('remember'))
-  }
+    setValue('remember', !getValues('remember'));
+  };
 
   return (
     <>
@@ -140,5 +143,5 @@ export default function LoginForm() {
         </Button>
       </form>
     </>
-  )
+  );
 }
