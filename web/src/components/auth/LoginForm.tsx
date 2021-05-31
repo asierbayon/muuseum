@@ -1,16 +1,17 @@
-import { useEffect } from 'react';
-import useAuth from '../../hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import * as Yup from 'yup';
-import { useState } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Icon } from '@iconify/react';
+import closeFill from '@iconify-icons/eva/close-fill';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
 // material
 import {
   Box,
+  Button,
   Link,
   Checkbox,
   TextField,
@@ -19,7 +20,9 @@ import {
   FormControlLabel,
   Alert
 } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import MIconButton from '../@material-extend/MIconButton';
+// hooks
+import useAuth from '../../hooks/useAuth';
 // services
 import { login } from '../../services/users-service';
 
@@ -35,7 +38,9 @@ type User = {
 export default function LoginForm() {
   const history = useHistory();
   const { onUserChange } = useAuth();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
+  const [onSubmitError, setonSubmitError] = useState();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -62,18 +67,29 @@ export default function LoginForm() {
         email: values.email,
         password: values.password
       });
+      enqueueSnackbar('Login success', {
+        variant: 'success',
+        action: (key) => (
+          <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+            <Icon icon={closeFill} />
+          </MIconButton>
+        )
+      });
       history.push('/');
       onUserChange(user);
     } catch (error) {
-      const { errors } = error.response.data;
-      useEffect(() => {
-        setError('onSubmit', {
-          type: 'manual',
-          message: errors.onSubmit
-        });
-      }, [setError]);
+      const { onSubmit } = error.response.data.errors;
+      setonSubmitError(onSubmit);
     }
   });
+
+    useEffect(() => {
+    if (!onSubmitError) return;
+    setError('onSubmit', {
+      type: 'manual',
+      message: onSubmitError
+    });
+  }, [setError, onSubmitError]);
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -127,7 +143,7 @@ export default function LoginForm() {
         >
           <FormControlLabel
             control={
-              <Checkbox {...register('remember')} onClick={handleRemember} defaultChecked={true} />
+              <Checkbox {...register('remember')} onClick={handleRemember} defaultChecked />
               // TODO
             }
             label="Remember me"

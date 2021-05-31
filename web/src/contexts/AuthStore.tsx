@@ -17,9 +17,7 @@ function AuthStore({ children }: { children: ReactNode }) {
     setUser(currentUser);
   }, []);
 
-  const isAuthenticated = useCallback(() => {
-    return currentUser && currentUser.email;
-  }, [currentUser]);
+  const isAuthenticated = useCallback(() => currentUser && currentUser.email, [currentUser]);
 
   return (
     <AuthContext.Provider value={{ currentUser, isAuthenticated, onUserChange: handleUserChange }}>
