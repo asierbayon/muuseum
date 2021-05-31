@@ -2,6 +2,8 @@ import { Link as RouterLink } from 'react-router-dom';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { Box, Card, Link, Container, Typography } from '@material-ui/core';
+// hooks
+import useLocales from '../../hooks/useLocales';
 // components
 import MHidden from '../../components/@material-extend/MHidden';
 import LoginForm from '../../components/auth/LoginForm';
@@ -55,6 +57,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
+  const { t } = useLocales();
+
   return (
     <RootStyle>
       <HeaderStyle>
@@ -69,9 +73,9 @@ export default function Login() {
               float: 'right'
             }}
           >
-            Don’t have an account? &nbsp;
+            {t('login.register.text')} &nbsp;
             <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
-              Register
+              {t('login.register.action')}
             </Link>
           </Typography>
         </MHidden>
@@ -80,7 +84,7 @@ export default function Login() {
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 15, mb: 15 }}>
-            Hi, Welcome Back
+            {t('login.salutation')}
           </Typography>
           <img src="/static/illustrations/happy.svg" alt="login" style={{ padding: '0 50px' }} />
         </SectionStyle>
@@ -91,9 +95,9 @@ export default function Login() {
           <Box sx={{ mb: 5 }}>
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h4" gutterBottom>
-                Sign in to Nftgram
+                {t('login.title')}
               </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+              <Typography sx={{ color: 'text.secondary' }}>{t('login.subtitle')}</Typography>
             </Box>
           </Box>
 
@@ -101,9 +105,9 @@ export default function Login() {
 
           <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-              Don’t have an account?&nbsp;
+              {t('login.register.text')}&nbsp;
               <Link variant="subtitle2" component={RouterLink} to="/register">
-                Get started
+                {t('login.register.action')}
               </Link>
             </Typography>
           </MHidden>

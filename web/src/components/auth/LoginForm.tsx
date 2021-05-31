@@ -23,6 +23,7 @@ import {
 import MIconButton from '../@material-extend/MIconButton';
 // hooks
 import useAuth from '../../hooks/useAuth';
+import useLocales from '../../hooks/useLocales';
 // services
 import { login } from '../../services/users-service';
 
@@ -38,13 +39,16 @@ type User = {
 export default function LoginForm() {
   const history = useHistory();
   const { onUserChange } = useAuth();
+  const { t } = useLocales();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [onSubmitError, setonSubmitError] = useState();
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    email: Yup.string()
+      .email(t('form.errors.email.valid'))
+      .required(t('form.errors.email.required')),
+    password: Yup.string().required(t('form.errors.password.required'))
   });
 
   const {
@@ -67,7 +71,7 @@ export default function LoginForm() {
         email: values.email,
         password: values.password
       });
-      enqueueSnackbar('Login success', {
+      enqueueSnackbar(t('snackbar.login'), {
         variant: 'success',
         action: (key) => (
           <MIconButton size="small" onClick={() => closeSnackbar(key)}>
@@ -79,11 +83,12 @@ export default function LoginForm() {
       onUserChange(user);
     } catch (error) {
       const { onSubmit } = error.response.data.errors;
+      console.log(onSubmit);
       setonSubmitError(onSubmit);
     }
   });
 
-    useEffect(() => {
+  useEffect(() => {
     if (!onSubmitError) return;
     setError('onSubmit', {
       type: 'manual',
@@ -108,7 +113,7 @@ export default function LoginForm() {
           fullWidth
           autoComplete="email"
           type="email"
-          label="Email address"
+          label={t('form.email')}
           {...register('email')}
           error={Boolean(errors.email?.message)}
           helperText={errors.email?.message}
@@ -119,7 +124,7 @@ export default function LoginForm() {
           fullWidth
           autoComplete="current-password"
           type={showPassword ? 'text' : 'password'}
-          label="Password"
+          label={t('form.password')}
           {...register('password')}
           error={Boolean(errors.password)}
           helperText={errors.password?.message}
@@ -146,16 +151,16 @@ export default function LoginForm() {
               <Checkbox {...register('remember')} onClick={handleRemember} defaultChecked />
               // TODO
             }
-            label="Remember me"
+            label={t('form.remember')}
           />
 
           <Link component={RouterLink} variant="subtitle2" to="/reset-password">
-            Forgot password?
+            {t('form.resetPassword')}
           </Link>
         </Box>
 
         <Button fullWidth size="large" type="submit" variant="contained">
-          Login
+          {t('form.login')}
         </Button>
       </form>
     </>

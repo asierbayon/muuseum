@@ -1,0 +1,31 @@
+{
+  "login": {
+    "salutation": "Hi, Welcome Back",
+    "title": "Sign in to Muuseum",
+    "subtitle": "Enter your details below.",
+    "button": "Login",
+    "register": {
+      "text": "Don’t have an account?",
+      "action": "Register"
+    }
+  }, "form": {
+    "email": "Email address",
+    "password": "Password",
+    "username": "Username",
+    "fullName": "fullName",
+    "resetPassword": "Forgot password?",
+    "remember": "Remember me",
+    "login": "Login",
+    "errors": {
+      "email": {
+        "required": "Email is required",
+        "valid": "Email must be a valid email address"
+      },
+      "password": {
+        "required": "Password is required"
+      }
+    }
+  }, "snackbar": {
+    "login": "Login success"
+  }
+}
