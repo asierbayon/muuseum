@@ -1,5 +1,7 @@
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
+import { useHistory } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,8 +25,10 @@ type User = {
 
 export default function RegisterForm() {
   const { t } = useLocales();
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [errorsFromApi, setErrorsFromApi] = useState<object | undefined>();
+  const [errorsFromApi, setErrorsFromApi] = useState<object>({});
 
   const RegisterSchema = Yup.object().shape({
     fullName: Yup.string()
@@ -57,13 +61,17 @@ export default function RegisterForm() {
         email: values.email,
         password: values.password
       });
+      enqueueSnackbar(t('snackbar.register'), {
+        variant: 'success'
+      });
+      history.push('/login');
     } catch (error) {
       setErrorsFromApi(error.response.data.errors);
     }
   });
 
   useEffect(() => {
-    if (!errorsFromApi) return;
+    if (Object.keys(errorsFromApi).length === 0) return;
     const keys = Object.keys(errorsFromApi) as (keyof User)[];
     const values = Object.values(errorsFromApi);
 

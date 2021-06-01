@@ -20,7 +20,6 @@ import {
   FormControlLabel,
   Alert
 } from '@material-ui/core';
-import MIconButton from '../@material-extend/MIconButton';
 // hooks
 import useAuth from '../../hooks/useAuth';
 import useLocales from '../../hooks/useLocales';
@@ -72,12 +71,7 @@ export default function LoginForm() {
         password: values.password
       });
       enqueueSnackbar(t('snackbar.login'), {
-        variant: 'success',
-        action: (key) => (
-          <MIconButton size="small" onClick={() => closeSnackbar(key)}>
-            <Icon icon={closeFill} />
-          </MIconButton>
-        )
+        variant: 'success'
       });
       history.push('/');
       onUserChange(user);

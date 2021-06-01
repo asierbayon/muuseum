@@ -54,6 +54,7 @@
     }
   },
   "snackbar": {
-    "login": "Login success"
+    "login": "Login success",
+    "register": "Register success"
   }
 }

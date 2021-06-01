@@ -14,7 +14,6 @@ import { ColorSchema } from '../@types/theme';
 // ----------------------------------------------------------------------
 
 const useStyles = makeStyles((theme) => {
-
   const createStyle = {
     color: `${theme.palette.text.primary} !important`,
     backgroundColor: `${theme.palette.background.paper} !important`
@@ -94,7 +93,7 @@ function NotistackProvider({ children }: NotistackProviderProps) {
       dense
       maxSnack={5}
       preventDuplicate
-      autoHideDuration={3000}
+      autoHideDuration={2000}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left'
