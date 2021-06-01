@@ -12,10 +12,11 @@
     "email": "Email address",
     "password": "Password",
     "username": "Username",
-    "fullName": "fullName",
+    "fullName": "Full name",
     "resetPassword": "Forgot password?",
     "remember": "Remember me",
     "login": "Login",
+    "register": "Register",
     "errors": {
       "email": {
         "required": "Email is required",
@@ -23,6 +24,15 @@
       },
       "password": {
         "required": "Password is required"
+      },
+      "fullName": {
+        "required": "Full name is required",
+        "long": "Your name is too long"
+      },
+      "username": {
+        "required": "Username is required",
+        "short": "Your username is too short",
+        "long": "Your username is too long"
       }
     }
   }, "snackbar": {
