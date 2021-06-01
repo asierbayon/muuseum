@@ -6,6 +6,7 @@ import NotistackProvider from './contexts/NotistackProvider';
 import theme from './theme/theme';
 // screens
 import Login from './screens/auth/Login';
+import Register from './screens/auth/Register';
 import Home from './components/Home';
 // paths
 import { PATH_AUTH } from './routes/paths';
@@ -18,6 +19,7 @@ function App() {
           <Router>
             <Switch>
               <Route exact path={PATH_AUTH.login} component={Login} />
+              <Route exact path={PATH_AUTH.register} component={Register} />
               <Route exact path="/" component={Home} />
               <Redirect to="/" />
             </Switch>

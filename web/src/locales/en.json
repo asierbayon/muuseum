@@ -8,7 +8,18 @@
       "text": "Don’t have an account?",
       "action": "Register"
     }
-  }, "form": {
+  },
+  "register": {
+    "salutation": "Curate and discover NFTs with Muuseum",
+    "title": "Create an account",
+    "subtitle": "Curate and discover NFTs.",
+    "button": "Register",
+    "login": {
+      "text": "Already have an account?",
+      "action": "Login"
+    }
+  },
+  "form": {
     "email": "Email address",
     "password": "Password",
     "username": "Username",
@@ -34,8 +45,15 @@
         "short": "Your username is too short",
         "long": "Your username is too long"
       }
+    },
+    "terms": {
+      "intro": "By registering, I agree to Muuseum",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
     }
-  }, "snackbar": {
+  },
+  "snackbar": {
     "login": "Login success"
   }
 }

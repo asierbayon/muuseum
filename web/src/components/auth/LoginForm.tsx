@@ -83,7 +83,6 @@ export default function LoginForm() {
       onUserChange(user);
     } catch (error) {
       const { onSubmit } = error.response.data.errors;
-      console.log(onSubmit);
       setonSubmitError(onSubmit);
     }
   });

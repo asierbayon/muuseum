@@ -6,8 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
 // material
-import { Box, TextField, IconButton, InputAdornment } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Box, TextField, IconButton, InputAdornment, Button } from '@material-ui/core';
 // services
 import { register as registerUser } from '../../services/users-service';
 // hooks
@@ -74,7 +73,7 @@ export default function RegisterForm() {
         message: values[i]
       });
     }
-  }, [errorsFromApi]);
+  }, [errorsFromApi, setError]);
 
   return (
     <form autoComplete="off" noValidate onSubmit={onSubmit}>
