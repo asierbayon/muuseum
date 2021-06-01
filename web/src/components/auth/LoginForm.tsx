@@ -5,9 +5,9 @@ import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Icon } from '@iconify/react';
-import closeFill from '@iconify-icons/eva/close-fill';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
+import { UserLogin } from '../../@types/user';
 // material
 import {
   Box,
@@ -28,18 +28,11 @@ import { login } from '../../services/users-service';
 
 // ----------------------------------------------------------------------
 
-type User = {
-  email: string;
-  password: string;
-  remember: boolean;
-  onSubmit?: string;
-};
-
 export default function LoginForm() {
   const history = useHistory();
   const { onUserChange } = useAuth();
   const { t } = useLocales();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   const [onSubmitError, setonSubmitError] = useState();
 
@@ -57,7 +50,7 @@ export default function LoginForm() {
     formState: { errors },
     getValues,
     setValue
-  } = useForm<User>({
+  } = useForm<UserLogin>({
     mode: 'onBlur',
     resolver: yupResolver(LoginSchema),
     defaultValues: {

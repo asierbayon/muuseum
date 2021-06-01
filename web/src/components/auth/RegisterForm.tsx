@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
+import { UserRegister } from '../../@types/user';
 // material
 import { Box, TextField, IconButton, InputAdornment, Button } from '@material-ui/core';
 // services
@@ -15,13 +16,6 @@ import { register as registerUser } from '../../services/users-service';
 import useLocales from '../../hooks/useLocales';
 
 // -------------------------------------------------------------------------
-
-type User = {
-  fullName: string;
-  username: string;
-  email: string;
-  password: string;
-};
 
 export default function RegisterForm() {
   const { t } = useLocales();
@@ -49,7 +43,7 @@ export default function RegisterForm() {
     handleSubmit,
     setError,
     formState: { errors }
-  } = useForm<User>({
+  } = useForm<UserRegister>({
     mode: 'onBlur',
     resolver: yupResolver(RegisterSchema)
   });
@@ -72,7 +66,7 @@ export default function RegisterForm() {
 
   useEffect(() => {
     if (Object.keys(errorsFromApi).length === 0) return;
-    const keys = Object.keys(errorsFromApi) as (keyof User)[];
+    const keys = Object.keys(errorsFromApi) as (keyof UserRegister)[];
     const values = Object.values(errorsFromApi);
 
     for (let i = 0; i < keys.length; i++) {
