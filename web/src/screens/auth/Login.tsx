@@ -8,6 +8,8 @@ import useLocales from '../../hooks/useLocales';
 import MHidden from '../../components/@material-extend/MHidden';
 import LoginForm from '../../components/auth/LoginForm';
 import Logo from '../../components/Logo';
+// routes
+import { PATH_COMMON, PATH_AUTH } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -62,7 +64,7 @@ export default function Login() {
   return (
     <RootStyle>
       <HeaderStyle>
-        <RouterLink to="/">
+        <RouterLink to={PATH_COMMON.home}>
           <Logo />
         </RouterLink>
         <MHidden width="smDown">
@@ -74,7 +76,7 @@ export default function Login() {
             }}
           >
             {t('login.register.text')} &nbsp;
-            <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
+            <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
               {t('login.register.action')}
             </Link>
           </Typography>
@@ -106,7 +108,7 @@ export default function Login() {
           <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               {t('login.register.text')}&nbsp;
-              <Link variant="subtitle2" component={RouterLink} to="/register">
+              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                 {t('login.register.action')}
               </Link>
             </Typography>

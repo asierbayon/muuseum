@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
-import { UserLogin } from '../../@types/user';
 // material
 import {
   Box,
@@ -20,6 +19,10 @@ import {
   FormControlLabel,
   Alert
 } from '@material-ui/core';
+// types
+import { UserLogin } from '../../@types/user';
+// routes
+import { PATH_COMMON, PATH_AUTH } from '../../routes/paths';
 // hooks
 import useAuth from '../../hooks/useAuth';
 import useLocales from '../../hooks/useLocales';
@@ -66,7 +69,7 @@ export default function LoginForm() {
       enqueueSnackbar(t('snackbar.login'), {
         variant: 'success'
       });
-      history.push('/');
+      history.push(PATH_COMMON.home);
       onUserChange(user);
     } catch (error) {
       const { onSubmit } = error.response.data.errors;
@@ -140,7 +143,7 @@ export default function LoginForm() {
             label={t('form.remember')}
           />
 
-          <Link component={RouterLink} variant="subtitle2" to="/reset-password">
+          <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
             {t('form.resetPassword')}
           </Link>
         </Box>

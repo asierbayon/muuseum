@@ -7,9 +7,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import eyeFill from '@iconify-icons/eva/eye-fill';
 import eyeOffFill from '@iconify-icons/eva/eye-off-fill';
-import { UserRegister } from '../../@types/user';
 // material
 import { Box, TextField, IconButton, InputAdornment, Button } from '@material-ui/core';
+// types
+import { UserRegister } from '../../@types/user';
+// routes
+import { PATH_AUTH } from '../../routes/paths';
 // services
 import { register as registerUser } from '../../services/users-service';
 // hooks
@@ -58,7 +61,7 @@ export default function RegisterForm() {
       enqueueSnackbar(t('snackbar.register'), {
         variant: 'success'
       });
-      history.push('/login');
+      history.push(PATH_AUTH.login);
     } catch (error) {
       setErrorsFromApi(error.response.data.errors);
     }

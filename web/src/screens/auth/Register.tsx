@@ -7,6 +7,8 @@ import RegisterForm from '../../components/auth/RegisterForm';
 import Logo from '../../components/Logo';
 // hooks
 import useLocales from '../../hooks/useLocales';
+// routes
+import { PATH_COMMON, PATH_AUTH } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -63,7 +65,7 @@ export default function Register() {
   return (
     <RootStyle>
       <HeaderStyle>
-        <RouterLink to="/">
+        <RouterLink to={PATH_COMMON.home}>
           <Logo />
         </RouterLink>
         <MHidden width="smDown">
@@ -75,7 +77,7 @@ export default function Register() {
             }}
           >
             {t('register.login.text')} &nbsp;
-            <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
+            <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
               {t('register.login.action')}
             </Link>
           </Typography>
@@ -117,7 +119,7 @@ export default function Register() {
           <MHidden width="smUp">
             <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
               {t('form.register.login.text')}&nbsp;
-              <Link to="/login" component={RouterLink}>
+              <Link to={PATH_AUTH.login} component={RouterLink}>
                 {t('form.register.login.action')}
               </Link>
             </Typography>
