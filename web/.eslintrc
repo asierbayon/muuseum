@@ -13,7 +13,9 @@
     "@typescript-eslint/no-shadow": 0,
     "react/jsx-props-no-spreading": 0,
     "import/prefer-default-export": 0,
-    "no-plusplus": 0
+    "no-plusplus": 0,
+    "react/destructuring-assignment": 0,
+    "react/no-unescaped-entities": 0
   },
   "settings": {
     "react": {

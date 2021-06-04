@@ -1,7 +1,13 @@
 import useAuth from '../hooks/useAuth';
+import Navbar from './nav/Navbar';
 
 export default function Home() {
   const { currentUser } = useAuth();
   console.log(currentUser);
-  return <div>Hola {currentUser?.username} </div>;
+  return (
+    <>
+      <Navbar />
+      <div>Hola {currentUser?.username} </div>
+    </>
+  );
 }
