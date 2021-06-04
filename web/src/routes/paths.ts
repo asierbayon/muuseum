@@ -7,3 +7,7 @@ export const PATH_AUTH = {
 export const PATH_COMMON = {
   home: '/'
 }
+
+export const PATH_USERS = {
+  settings: '/settings'
+}
