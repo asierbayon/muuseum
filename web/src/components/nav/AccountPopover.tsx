@@ -24,7 +24,6 @@ type AccountPopoverProps = {
 }
 
 export default function AccountPopover({user}: AccountPopoverProps) {
-  console.log(user)
   const history = useHistory();
   const anchorRef = useRef(null);
   const { onUserChange } = useAuth();

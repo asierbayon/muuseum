@@ -22,3 +22,8 @@ export type UserSettings = {
   bio: string | null;
   avatar: File | null;
 }
+
+export type UserChangePassword = {
+  password: string;
+  passwordMatch: string;
+}

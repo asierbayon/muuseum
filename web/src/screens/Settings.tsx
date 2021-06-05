@@ -1,11 +1,13 @@
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
-/* import roundVpnKey from '@iconify-icons/ic/round-vpn-key'; */
+import roundVpnKey from '@iconify-icons/ic/round-vpn-key';
 import roundAccountBox from '@iconify-icons/ic/round-account-box';
 // material
 import { Container, Tab, Box, Tabs } from '@material-ui/core';
+// components
 import SettingsGeneral from '../components/users/settings/SettingsGeneral';
-/* import SettingsChangePassword from '../components/users/settings/SettingsChangePassword'; */
+import SettingsChangePassword from '../components/users/settings/SettingsChangePassword';
+import Navbar from '../components/nav/Navbar';
 
 // ----------------------------------------------------------------------
 
@@ -18,15 +20,22 @@ export default function Settings() {
       label: 'General',
       icon: <Icon icon={roundAccountBox} width={20} height={20} />,
       component: <SettingsGeneral />
+    },
+    {
+      value: 'change_password',
+      label: 'Change password',
+      icon: <Icon icon={roundVpnKey} width={20} height={20} />,
+      component: <SettingsChangePassword />
     }
   ];
 
-  const handleChangeTab = (event: React.SyntheticEvent , newValue: string) => {
+  const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setCurrentTab(newValue);
   };
 
   return (
     <>
+      <Navbar />
       <Box>
         <Container>
           <Tabs
