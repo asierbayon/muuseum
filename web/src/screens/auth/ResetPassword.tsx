@@ -41,7 +41,7 @@ export default function ResetPassword() {
     <RootStyle>
       <HeaderStyle>
         <RouterLink to={PATH_COMMON.home}>
-          <Logo />
+          <Logo height={40} />
         </RouterLink>
       </HeaderStyle>
 

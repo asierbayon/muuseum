@@ -14,7 +14,7 @@ export default function SearchResults({ searchResult }) {
 
   const SearchResultsStyle = styled('div')(({ theme }) => ({
     position: 'absolute',
-    zIndex: 9,
+    zIndex: 99,
     backgroundColor: 'white',
     top: APPBAR_MOBILE,
     borderRadius: '1.5rem',
@@ -24,6 +24,9 @@ export default function SearchResults({ searchResult }) {
     [theme.breakpoints.up('md')]: {
       width: '30%',
       top: APPBAR_DESKTOP
+    },
+    [theme.breakpoints.down('md')]: {
+      left: 10
     }
   }));
 

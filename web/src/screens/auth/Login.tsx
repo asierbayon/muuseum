@@ -65,7 +65,7 @@ export default function Login() {
     <RootStyle>
       <HeaderStyle>
         <RouterLink to={PATH_COMMON.home}>
-          <Logo />
+          <Logo height={40} />
         </RouterLink>
         <MHidden width="smDown">
           <Typography

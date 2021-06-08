@@ -32,17 +32,25 @@ const SearchBarContainerStyle = styled('div')(({ theme }) => ({
 }));
 
 const SearchbarStyle = styled('div')(({ theme }) => ({
-  width: '100%',
+  maxWidth: '100vw',
   display: 'flex',
+  backgroundColor: 'white',
   alignItems: 'center',
-  height: APPBAR_MOBILE * 2 / 3,
-  padding: theme.spacing(0, 3),
-  borderRadius: '1.5rem',
+  height: APPBAR_MOBILE,
   boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
 
   [theme.breakpoints.up('md')]: {
     height: APPBAR_DESKTOP / 2,
-    padding: theme.spacing(0, 5)
+    padding: theme.spacing(0, 5),
+    borderRadius: '1.5rem',
+    width: '50vw'
+  },
+  [theme.breakpoints.down('md')]: {
+    width: '100vw',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 99,
   }
 }));
 
@@ -84,7 +92,7 @@ export default function Searchbar() {
           : null
         }
 
-        <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
+        <Slide direction="down" in={isOpen} mountOnEnter unmountOnExit>
           <SearchbarStyle>
             <Input
               onChange={handleSearch}
@@ -95,7 +103,7 @@ export default function Searchbar() {
               placeholder="Search…"
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
               startAdornment={
-                <InputAdornment position="start">
+                <InputAdornment position="start" sx={{ marginLeft: 3 }} >
                   <Box
                     component={Icon}
                     icon={searchFill}
