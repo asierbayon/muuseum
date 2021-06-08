@@ -27,3 +27,14 @@ export type UserChangePassword = {
   password: string;
   passwordMatch: string;
 }
+
+export type fetchedUser = {
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+  website: string | null;
+  ethAddress: string | null;
+  bio: string | null;
+  avatar: string;
+}

@@ -1,6 +1,10 @@
 import http from './base-api-service';
+// @types
+import { SingleAsset } from '../@types/asset';
 
-export const feed = () => http.get('/feed');
+type ResponseContainer = SingleAsset[];
+
+export const feed = () => http.get<SingleAsset, ResponseContainer>('/feed');
 
 export const asset = (id: string) => http.get(`/assets/${id}`)
 
