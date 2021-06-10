@@ -15,7 +15,8 @@
     "import/prefer-default-export": 0,
     "no-plusplus": 0,
     "react/destructuring-assignment": 0,
-    "react/no-unescaped-entities": 0
+    "react/no-unescaped-entities": 0,
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "react": {

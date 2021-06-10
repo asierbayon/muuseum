@@ -9,10 +9,11 @@ import theme from './theme/theme';
 import Login from './screens/auth/Login';
 import Register from './screens/auth/Register';
 import ResetPassword from './screens/auth/ResetPassword';
-// paths
-import { PATH_AUTH, PATH_COMMON, PATH_USERS } from './routes/paths';
 import Settings from './screens/Settings';
 import Feed from './screens/Feed';
+import Profile from './screens/Profile';
+// paths
+import { PATH_AUTH, PATH_COMMON, PATH_USERS } from './routes/paths';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route exact path={PATH_AUTH.register} component={Register} />
               <Route exact path={PATH_AUTH.resetPassword} component={ResetPassword} />
               <Route exact path={PATH_USERS.settings} component={Settings} />
+              <Route exact path={PATH_USERS.profile} component={Profile} />
               <Route exact path={PATH_COMMON.home} component={Feed} />
               <Redirect to={PATH_COMMON.home} />
             </Switch>

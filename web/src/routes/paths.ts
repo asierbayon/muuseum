@@ -9,5 +9,6 @@ export const PATH_COMMON = {
 }
 
 export const PATH_USERS = {
-  settings: '/settings'
+  settings: '/settings',
+  profile: '/:username'
 }

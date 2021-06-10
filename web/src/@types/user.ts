@@ -28,7 +28,7 @@ export type UserChangePassword = {
   passwordMatch: string;
 }
 
-export type fetchedUser = {
+export type FetchedUser = {
   fullName: string;
   username: string;
   email: string;
@@ -37,4 +37,8 @@ export type fetchedUser = {
   ethAddress: string | null;
   bio: string | null;
   avatar: string;
+  coverImage: string;
+  followersCount: number;
+  followingCount: number;
+  id: string;
 }

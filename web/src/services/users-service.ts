@@ -1,12 +1,19 @@
 import http from './base-api-service';
-import { UserLogin, UserRegister } from '../@types/user';
+// @types
+import { UserLogin, UserRegister, FetchedUser } from '../@types/user';
+import { SingleAsset } from '../@types/asset';
+
+type ResponseConainer = {
+  user: FetchedUser;
+  assets: SingleAsset[];
+}
 
 export const register = (user: UserRegister) => http.post('/users', user);
 export const login = (user: UserLogin) => http.post('/login', user);
 export const logout = () => http.post('/logout');
 export const update = (user: object) => http.put('/users', user);
 
-export const user = (user: object) => http.get(`/${user}`);
+export const user = (user: string) => http.get<FetchedUser, ResponseConainer>(`/${user}`);
 export const search = (input: string) => http.get('/users', { params: { search: input } });
 
 export const follow = (user: string) => http.post(`/${user}/follow`);
