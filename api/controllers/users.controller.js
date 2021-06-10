@@ -34,7 +34,7 @@ module.exports.get = async (req, res, next) => {
       .populate('followersCount')
     if (!user) return next(createError(404, 'User not found'));
 
-    const assets = await Asset.find({ owner: user.id }, 'image');
+    const assets = await Asset.find({ owner: user.id }, 'image').sort({ createdAt: -1 });
 
     let isFollowing = false;
 
