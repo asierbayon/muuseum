@@ -45,6 +45,12 @@ const userSchema = new Schema({
       return `https://avatars.dicebear.com/api/identicon/${this.username}.svg`
     },
   },
+  coverImage: {
+    type: String,
+    default: function () {
+      return `https://images.unsplash.com/photo-1514905552197-0610a4d8fd73?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80`
+    }
+  },
   bio: {
     type: String,
     maxlength: [150, 'Bio is too long.'],
