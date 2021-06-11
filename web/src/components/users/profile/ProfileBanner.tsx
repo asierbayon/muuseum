@@ -52,7 +52,7 @@ type ProfileBannerProps = {
 };
 
 export default function ProfileBanner({ user }: ProfileBannerProps) {
-  console.log(user)
+  
   return (
     <RootStyle>
       <InfoStyle>

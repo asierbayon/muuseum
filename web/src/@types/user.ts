@@ -42,3 +42,16 @@ export type FetchedUser = {
   followingCount: number;
   id: string;
 }
+
+export type Follower = {
+  fullName: string;
+  username: string;
+  avatar: string;
+  id: string;
+}
+
+export type FetchedFollower = {
+  amIFollowing: boolean | undefined;
+  user: Follower;
+  _id: string;
+}

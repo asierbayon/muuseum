@@ -11,11 +11,18 @@ import roundPeople from '@iconify-icons/ic/round-people';
 import ProfileBanner from '../components/users/profile/ProfileBanner';
 import Navbar from '../components/nav/Navbar';
 import ProfileTab from '../components/users/profile/ProfileTab';
+import FollowersTab from '../components/users/profile/FollowersTab';
 // @types
-import { FetchedUser } from '../@types/user';
-// services
-import { user as getUser } from '../services/users-service';
+import { FetchedUser, FetchedFollower } from '../@types/user';
 import { SimpleSingleAsset } from '../@types/asset';
+// services
+import {
+  user as getUser,
+  followers as getFollowers,
+  following as getFollowing,
+  follow,
+  unfollow
+} from '../services/users-service';
 
 // ----------------------------------------------------------------------
 
@@ -44,13 +51,12 @@ interface RouteParams {
 export default function Profile() {
   const [user, setUser] = useState<FetchedUser | null>(null);
   const [assets, setAssets] = useState<SimpleSingleAsset[] | null>(null);
+  const [followers, setFollowers] = useState<FetchedFollower[] | []>([]);
+  const [following, setFollowing] = useState<FetchedFollower[] | []>([]);
+  const [targetedUser, setTargetedUser] = useState<FetchedFollower | null>();
   const [currentTab, setCurrentTab] = useState('nfts');
   const params = useParams<RouteParams>();
   const { username } = params;
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   const fetchUser = async () => {
     const userFromApi = await getUser(username);
@@ -58,9 +64,35 @@ export default function Profile() {
     setAssets(userFromApi.assets);
   };
 
+  const fetchFollowers = async () => {
+    if (username) {
+      const responseFromApi = await getFollowers(username);
+      setFollowers(responseFromApi);
+    }
+  };
+
+  const fetchFollowing = async () => {
+    if (username) {
+      const responseFromApi = await getFollowing(username);
+      setFollowing(responseFromApi);
+    }
+  };
+
   const handleChangeTab = (value: string) => {
     setCurrentTab(value);
   };
+
+  const handleToggleFollow = async (value: FetchedFollower) => {
+    if (value.amIFollowing) await unfollow(value.user.username);
+    else await follow(value.user.username);
+    setTargetedUser(value);
+  };
+
+  useEffect(() => {
+    fetchUser();
+    fetchFollowers();
+    fetchFollowing();
+  }, [targetedUser]);
 
   const TABS = [
     {
@@ -73,13 +105,13 @@ export default function Profile() {
       label: `Followers (${user?.followersCount})`,
       value: 'followers',
       icon: <Icon icon={roundPeople} width={20} height={20} />,
-      component: <ProfileTab assets={assets} />
+      component: <FollowersTab label='Followers' followers={followers} onToggleFollow={handleToggleFollow} />
     },
     {
       label: `Following (${user?.followingCount})`,
       value: 'following',
       icon: <Icon icon={sharpPersonSearch} width={20} height={20} />,
-      component: <ProfileTab assets={assets} />
+      component: <FollowersTab label='Following' followers={following} onToggleFollow={handleToggleFollow} />
     }
   ];
 
@@ -120,7 +152,7 @@ export default function Profile() {
 
         {TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>
+          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}
       </Container>
     </>
