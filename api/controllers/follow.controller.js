@@ -122,8 +122,16 @@ module.exports.listFollowing = async (req, res, next) => {
         amIFollowing: currentUser.following.some(userIAmFollowing => userIAmFollowing.following.id == following.following.id)
       }
     })
-
   }
+
+  newUser.following = newUser.following.map(following => {
+    const userFollowing = following.following;
+    delete following.following;
+    return {
+      ...following,
+      user: userFollowing
+    }
+  });
 
   res.status(200).json(newUser.following);
 }
