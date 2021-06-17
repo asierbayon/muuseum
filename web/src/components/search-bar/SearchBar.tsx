@@ -14,8 +14,9 @@ import {
 } from '@material-ui/core';
 // components 
 import SearchResults from './SearchResults';
-// services
-import { search } from '../../services/users-service';
+// redux
+import { useSelector, useDispatch, RootState } from '../../redux/store';
+import { searchUsers } from '../../redux/slices/users';
 
 // ----------------------------------------------------------------------
 
@@ -57,8 +58,12 @@ const SearchbarStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Searchbar() {
+  const dispatch = useDispatch();
+  const { userList } = useSelector(
+    (state: RootState) => state.users
+  );
+
   const [isOpen, setOpen] = useState(false);
-  const [searchResult, setSearchResult] = useState<boolean | object>(false);
   const [input, setInput] = useState('');
 
 
@@ -71,15 +76,8 @@ export default function Searchbar() {
   };
 
   const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-
       setInput(event.target?.value);
-      const result = await search(event.target?.value);
-      setSearchResult(result)
-    }
-    catch {
-      setSearchResult(false);
-    }
+      dispatch(searchUsers(event.target?.value));
   }
 
   return (
@@ -123,7 +121,7 @@ export default function Searchbar() {
             />
           </SearchbarStyle>
         </Slide>
-        {isOpen && searchResult && <SearchResults searchResult={searchResult} />}
+        {isOpen && input && <SearchResults users={userList} />}
       </SearchBarContainerStyle>
     </ClickAwayListener>
   );

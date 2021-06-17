@@ -55,3 +55,10 @@ export type FetchedFollower = {
   user: Follower;
   _id: string;
 }
+
+export type ListedUser = {
+  fullName: string;
+  username: string;
+  avatar: string;
+  id: string;
+}

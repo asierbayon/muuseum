@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 // material
 import { Box } from '@material-ui/core';
-// services
-import { feed } from '../services/assets-service';
+// redux
+import { useSelector, useDispatch, RootState } from '../redux/store';
+import { getFeed } from '../redux/slices/assets';
 // @types
 import { SingleAsset } from '../@types/asset';
 //
@@ -10,16 +11,14 @@ import Asset from '../components/assets/Asset';
 import Navbar from '../components/nav/Navbar';
 
 export default function Feed() {
-  const [assets, setAssets] = useState<SingleAsset[] | []>([]);
-
-  const fetchAssets = async () => {
-    const fetchedAssets = await feed();
-    setAssets(fetchedAssets);
-  };
+  const dispatch = useDispatch();
+  const { feed } = useSelector(
+    (state: RootState) => state.assets
+  );
 
   useEffect(() => {
-    fetchAssets();
-  }, []);
+    dispatch(getFeed())
+  }, [dispatch]);
 
   return (
     <>
@@ -32,7 +31,7 @@ export default function Feed() {
           alignItems: 'center'
         }}
       >
-        {assets.map((asset: SingleAsset) => (
+        {feed.map((asset: SingleAsset) => (
           <Asset key={asset.id} asset={asset} sx={{ mb: 3 }} />
         ))}
       </Box>

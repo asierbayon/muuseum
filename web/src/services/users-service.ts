@@ -1,11 +1,16 @@
 import http from './base-api-service';
 // @types
-import { UserLogin, UserRegister, FetchedUser, FetchedFollower } from '../@types/user';
+import { UserLogin, UserRegister, FetchedUser, FetchedFollower, ListedUser } from '../@types/user';
 import { SingleAsset } from '../@types/asset';
 
 type GetUserResponseConainer = {
   user: FetchedUser;
   assets: SingleAsset[];
+}
+
+type GetUsersResponseContainer = {
+  results: number;
+  users: ListedUser[];
 }
 
 type GetFollowersResponseContainer = FetchedFollower[];
@@ -16,7 +21,7 @@ export const logout = () => http.post('/logout');
 export const update = (user: object) => http.put('/users', user);
 
 export const user = (user: string) => http.get<FetchedUser, GetUserResponseConainer>(`/${user}`);
-export const search = (input: string) => http.get('/users', { params: { search: input } });
+export const search = (input: string) => http.get<ListedUser, GetUsersResponseContainer>('/users', { params: { search: input } });
 
 export const follow = (user: string) => http.post(`/${user}/follow`);
 export const unfollow = (user: string) => http.delete(`/${user}/follow`);

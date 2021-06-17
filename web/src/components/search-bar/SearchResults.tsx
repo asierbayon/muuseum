@@ -3,18 +3,23 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 // components
 import UserItem from '../users/UserItem';
+// @types
+import { ListedUser } from '../../@types/user';
 
 // -------------------------------------------------------------------
 
-export default function SearchResults({ searchResult }) {
-  const { users } = searchResult;
+type SearchResultsProps = {
+  users: ListedUser[];
+}
+
+export default function SearchResults({ users }: SearchResultsProps) {
 
   const APPBAR_MOBILE = 64;
   const APPBAR_DESKTOP = 92;
 
   const SearchResultsStyle = styled('div')(({ theme }) => ({
     position: 'absolute',
-    zIndex: 99,
+    zIndex: 999,
     backgroundColor: 'white',
     top: APPBAR_MOBILE,
     borderRadius: '1.5rem',

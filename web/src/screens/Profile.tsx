@@ -12,17 +12,11 @@ import ProfileBanner from '../components/users/profile/ProfileBanner';
 import Navbar from '../components/nav/Navbar';
 import ProfileTab from '../components/users/profile/ProfileTab';
 import FollowersTab from '../components/users/profile/FollowersTab';
+// redux
+import { useSelector, useDispatch, RootState } from '../redux/store';
+import { getUser, getFollowers, getFollowing, onToggleFollow } from '../redux/slices/users';
 // @types
-import { FetchedUser, FetchedFollower } from '../@types/user';
-import { SimpleSingleAsset } from '../@types/asset';
-// services
-import {
-  user as getUser,
-  followers as getFollowers,
-  following as getFollowing,
-  follow,
-  unfollow
-} from '../services/users-service';
+import { FetchedFollower } from '../@types/user';
 
 // ----------------------------------------------------------------------
 
@@ -49,50 +43,30 @@ interface RouteParams {
 }
 
 export default function Profile() {
-  const [user, setUser] = useState<FetchedUser | null>(null);
-  const [assets, setAssets] = useState<SimpleSingleAsset[] | null>(null);
-  const [followers, setFollowers] = useState<FetchedFollower[] | []>([]);
-  const [following, setFollowing] = useState<FetchedFollower[] | []>([]);
-  const [targetedUser, setTargetedUser] = useState<FetchedFollower | null>();
+  const [targetedUser, setTargetedUser] = useState<FetchedFollower | null>(null)
   const [currentTab, setCurrentTab] = useState('nfts');
   const params = useParams<RouteParams>();
   const { username } = params;
 
-  const fetchUser = async () => {
-    const userFromApi = await getUser(username);
-    setUser(userFromApi.user);
-    setAssets(userFromApi.assets);
-  };
+  const dispatch = useDispatch();
+  const { user, assets, followers, following } = useSelector(
+    (state: RootState) => state.users
+  );
 
-  const fetchFollowers = async () => {
-    if (username) {
-      const responseFromApi = await getFollowers(username);
-      setFollowers(responseFromApi);
-    }
-  };
-
-  const fetchFollowing = async () => {
-    if (username) {
-      const responseFromApi = await getFollowing(username);
-      setFollowing(responseFromApi);
-    }
-  };
+  useEffect(() => {
+    dispatch(getUser(username));
+    dispatch(getFollowers(username));
+    dispatch(getFollowing(username));
+  }, [dispatch, targetedUser]);
 
   const handleChangeTab = (value: string) => {
     setCurrentTab(value);
   };
 
   const handleToggleFollow = async (value: FetchedFollower) => {
-    if (value.amIFollowing) await unfollow(value.user.username);
-    else await follow(value.user.username);
+    await dispatch(onToggleFollow(value));
     setTargetedUser(value);
   };
-
-  useEffect(() => {
-    fetchUser();
-    fetchFollowers();
-    fetchFollowing();
-  }, [targetedUser]);
 
   const TABS = [
     {
