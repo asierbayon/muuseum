@@ -24,7 +24,16 @@ module.exports.get = async (req, res, next) => {
     const newAsset = asset.toObject();
     like ? newAsset.likedByMe = true : newAsset.likedByMe = false;
 
-    res.status(200).json({ asset: newAsset, user });
+    let isFollowing = false;
+
+    if (req.user) {
+      const isFollower = await Follow.findOne({ user: req.user.id, following: user.id })
+      if (isFollower) isFollowing = true;
+    }
+    const newUser = user.toObject();
+    isFollowing ? newUser.amIFollowing = true : newUser.amIFollowing = false;
+
+    res.status(200).json({ asset: newAsset, user: newUser });
 }
 
 module.exports.create = (req, res, next) => {
