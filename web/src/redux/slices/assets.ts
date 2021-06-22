@@ -1,7 +1,11 @@
+// redux
 import { createSlice } from '@reduxjs/toolkit';
-import { SingleAsset } from '../../@types/asset';
-import { feed } from '../../services/assets-service';
 import { dispatch } from '../store';
+// @types
+import { ListedUser } from '../../@types/user';
+import { SingleAsset, FetchedAssetInfo } from '../../@types/asset';
+// services
+import { asset, feed } from '../../services/assets-service';
 
 // ----------------------------------------------------------------------
 
@@ -9,12 +13,16 @@ type AssetsState = {
   isLoading: boolean;
   error: boolean;
   feed: SingleAsset[];
+  asset: FetchedAssetInfo | null;
+  owner: ListedUser | null;
 };
 
 const initialState: AssetsState = {
   isLoading: false,
   error: false,
   feed: [],
+  asset: null,
+  owner: null
 };
 
 const slice = createSlice({
@@ -38,6 +46,18 @@ const slice = createSlice({
       state.feed = action.payload;
     },
 
+    // GET ASSET
+    getAssetSuccess(state, action) {
+      state.isLoading = false;
+      state.asset = action.payload;
+    },
+
+    // GET OWNER
+    getOwnerSuccess(state, action) {
+      state.isLoading = false;
+      state.owner = action.payload;
+    }
+
   }
 });
 
@@ -52,6 +72,21 @@ export function getFeed() {
     try {
       const response = await feed();
       dispatch(slice.actions.getFeedSuccess(response));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export function getAsset(id: string) {
+  return async () => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await asset(id);
+      dispatch(slice.actions.getAssetSuccess(response.asset));
+      dispatch(slice.actions.getOwnerSuccess(response.user));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

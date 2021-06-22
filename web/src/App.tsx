@@ -15,8 +15,9 @@ import ResetPassword from './screens/auth/ResetPassword';
 import Settings from './screens/Settings';
 import Feed from './screens/Feed';
 import Profile from './screens/Profile';
+import AssetDetail from './screens/AssetDetail'
 // paths
-import { PATH_AUTH, PATH_COMMON, PATH_USERS } from './routes/paths';
+import { PATH_ASSETS, PATH_AUTH, PATH_COMMON, PATH_USERS } from './routes/paths';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                 <Route exact path={PATH_AUTH.resetPassword} component={ResetPassword} />
                 <Route exact path={PATH_USERS.settings} component={Settings} />
                 <Route exact path={PATH_USERS.profile} component={Profile} />
+                <Route exact path={PATH_ASSETS.detail} component={AssetDetail} />
                 <Route exact path={PATH_COMMON.home} component={Feed} />
                 <Redirect to={PATH_COMMON.home} />
               </Switch>

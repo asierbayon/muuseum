@@ -12,3 +12,7 @@ export const PATH_USERS = {
   settings: '/settings',
   profile: '/:username'
 }
+
+export const PATH_ASSETS = {
+  detail: '/assets/:id'
+}

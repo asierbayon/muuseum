@@ -1,4 +1,4 @@
-import { FetchedUser } from './user';
+import { FetchedUser, ListedUser } from './user';
 
 export type SingleAsset = {
   image: string;
@@ -13,4 +13,24 @@ export type SingleAsset = {
 export type SimpleSingleAsset = {
   image: string;
   id: string;
+}
+
+export type FetchedAssetInfo = {
+  title: string;
+  image: string;
+  assetContractAddress: string;
+  tokenId: string;
+  url: string;
+  owner: string;
+  likes: number;
+  comments: number;
+  id: string;
+  likedByMe: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type FetchedAsset = {
+  asset: FetchedAssetInfo;
+  user: ListedUser;
 }

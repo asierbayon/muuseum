@@ -57,7 +57,11 @@ export default function Profile() {
     dispatch(getUser(username));
     dispatch(getFollowers(username));
     dispatch(getFollowing(username));
-  }, [dispatch, targetedUser]);
+  }, [dispatch, targetedUser, params]);
+
+  useEffect(() => {
+    setCurrentTab('nfts')
+  }, [params])
 
   const handleChangeTab = (value: string) => {
     setCurrentTab(value);

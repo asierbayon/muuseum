@@ -43,17 +43,9 @@ export type FetchedUser = {
   id: string;
 }
 
-export type Follower = {
-  fullName: string;
-  username: string;
-  avatar: string;
-  id: string;
-}
-
 export type FetchedFollower = {
   amIFollowing: boolean | undefined;
-  user: Follower;
-  _id: string;
+  user: ListedUser;
 }
 
 export type ListedUser = {
@@ -61,4 +53,5 @@ export type ListedUser = {
   username: string;
   avatar: string;
   id: string;
+  amIFollowing?: boolean;
 }

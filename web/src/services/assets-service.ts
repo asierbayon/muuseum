@@ -1,12 +1,12 @@
 import http from './base-api-service';
 // @types
-import { SingleAsset } from '../@types/asset';
+import { FetchedAsset, FetchedAssetInfo, SingleAsset } from '../@types/asset';
 
-type ResponseContainer = SingleAsset[];
+type FeedResponseContainer = SingleAsset[];
 
-export const feed = () => http.get<SingleAsset, ResponseContainer>('/feed');
+export const feed = () => http.get<SingleAsset, FeedResponseContainer>('/feed');
 
-export const asset = (id: string) => http.get(`/assets/${id}`)
+export const asset = (id: string) => http.get<FetchedAssetInfo, FetchedAsset>(`/assets/${id}`)
 
 export const like = (id: string) => http.post(`/assets/${id}/likes`);
 
